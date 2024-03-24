@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="movieApp">
+  <head>
+    <title>Movie List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-controller="MovieController as movieCtrl">
+      <label>Select Director:</label>
+      <select
+        ng-model="selectedDirector"
+        ng-options="director for director in movieCtrl.directors"
+      >
+        <option value="">-- Select Director --</option>
+      </select>
+      <button ng-click="movieCtrl.displayMoviesOfDirector()">
+        Display Movies of Director
+      </button>
+      <br />
+      <label>Enter Year:</label>
+      <input type="number" ng-model="selectedYear" />
+      <button ng-click="movieCtrl.displayMoviesByYear()">
+        Display Movies by Year
+      </button>
+      <br />
+      <ul>
+        <li ng-repeat="movie in movieCtrl.displayedMovies">
+          {{ movie.title }} ({{ movie.year }})
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      angular.module("movieApp", []).controller("MovieController", function () {
+        var vm = this;
+
+        // Sample data
+        vm.movies = [
+          { title: "Movie 1", director: "Director 1", year: 2023 },
+          { title: "Movie 2", director: "Director 2", year: 2022 },
+          { title: "Movie 3", director: "Director 1", year: 2021 },
+          { title: "Movie 4", director: "Director 3", year: 2023 },
+        ];
+
+        // Extract directors from movies
+        vm.directors = Array.from(
+          new Set(vm.movies.map((movie) => movie.director))
+        );
+
+        // Function to display movies of selected director
+        vm.displayMoviesOfDirector = function () {
+          if (!vm.selectedDirector) return;
+          vm.displayedMovies = vm.movies
+            .filter((movie) => movie.director === vm.selectedDirector)
+            .sort((a, b) => b.year - a.year);
+        };
+
+        // Function to display movies by selected year
+        vm.displayMoviesByYear = function () {
+          if (!vm.selectedYear) return;
+          vm.displayedMovies = vm.movies.filter(
+            (movie) => movie.year === vm.selectedYear
+          );
+        };
+      });
+    </script>
+  </body>
+</html>

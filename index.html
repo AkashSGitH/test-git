@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Question 2</title>
+    <!-- <script src=""></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js" integrity="sha512-KZmyTq3PLx9EZl0RHShHQuXtrvdJ+m35tuOiwlcZfs/rE7NZv29ygNA8SFCkMXTnYZQK2OX0Gm2qKGfvWEtRXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <div ng-app="movieApp" ng-controller="movieController" ng-switch="myDir">
+      <select ng-model="myDir">
+        <option value=""></option>
+        <option value="dc">dc</option>
+        <option value="marvel">marvel</option>
+        <option value="lmn">lmn</option>
+      </select>
+      <div ng-switch-when="dc">
+        <ol>
+          <li ng-repeat="x in dc ">{{x.name + "," + x.year }}</li>
+        </ol>
+      </div>
+      <div ng-switch-when="marvel">
+        <ol>
+          <li ng-repeat="x in marvel ">{{x.name + "," + x.year }}</li>
+        </ol>
+      </div>
+      <div ng-switch-when="lmn">
+        <ol>
+          <li ng-repeat="x in lmn ">{{x.name + "," + x.year }}</li>
+        </ol>
+      </div>
+      <button ng-click="sortArray('myDir')">View Movies by Director</button>
+      <br />
+    </div>
+    <script>
+      var app = angular.module("movieApp", []);
+      app.controller("movieController", function ($scope) {
+        // name , year, actor , actress, director
+        // $scope.arr = [dc, marvel, lmn];
+        $scope.dc = [
+          { name: "Batman", year: "2011" },
+          { name: "Superman", year: "2014" },
+          { name: "Flash", year: "2019" },
+        ];
+        $scope.marvel = [
+          { name: "thor", year: "2018" },
+          { name: "ironman", year: "2011" },
+          { name: "eternals", year: "2022" },
+        ];
+        $scope.lmn = [
+          { name: "Pacific Rim", year: "2016" },
+          { name: "Pacific Rim : Uprising", year: "2019" },
+        ];
+      });
+    </script>
+  </body>
+</html>
