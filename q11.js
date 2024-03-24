@@ -34,7 +34,7 @@ server.post('/upload', (req, resp)=>{
                 resp.status(500).send("Error moving file");
                 return;
             }
-            resp.write("File was uploaded and moved");
+            resp.write("File was MOVED");
             resp.status(200).send();
         });
     });
